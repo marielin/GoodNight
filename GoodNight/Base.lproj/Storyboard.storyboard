@@ -298,7 +298,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Level" footerTitle="This is used to lower the brightness even more than iOS will allow you to. The level at 10.0 is the default system level." id="HHn-QF-RHM">
+                            <tableViewSection headerTitle="Brightness" footerTitle="This is used to lower the brightness even more than iOS will allow you to. " id="HHn-QF-RHM">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Z7h-h0-pBx">
                                         <rect key="frame" x="0.0" y="193" width="600" height="44"/>
@@ -307,7 +307,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="UfU-y4-ZK6">
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.57499999999999996" minValue="0.14999999999999999" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="UfU-y4-ZK6">
                                                     <rect key="frame" x="16" y="7" width="568" height="31"/>
                                                     <animations/>
                                                     <connections>
@@ -329,7 +329,7 @@
                             <tableViewSection headerTitle="" id="px6-e3-Kss">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="NcN-eL-fdd">
-                                        <rect key="frame" x="0.0" y="297.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="281.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NcN-eL-fdd" id="th2-Y1-qc4">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>

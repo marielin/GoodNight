@@ -14,13 +14,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     NSDictionary *defaultsToRegister = @{@"enabled": @NO,
-                                         @"maxOrange": @0.4,
+                                         @"maxOrange": @0.5,
                                          @"colorChangingEnabled": @YES,
                                          @"redValue": @1.0,
                                          @"greenValue": @1.0,
                                          @"blueValue": @1.0,
                                          @"dimEnabled": @NO,
-                                         @"dimLevel": @1.0,
+                                         @"dimLevel": @0.575,
                                          @"lastAutoChangeDate": [NSDate distantPast],
                                          @"autoStartHour": @19,
                                          @"autoStartMinute": @0,

@@ -48,21 +48,21 @@
 }
 
 - (IBAction)resetSlider {
-    self.dimSlider.value = 0.5;
+    self.dimSlider.value = 0.575;
     [userDefaults setFloat:self.dimSlider.value forKey:@"dimLevel"];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
 	
 	[GammaController updateDimness];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString *headerText = @"";
-    if (tableView) {
-        if (section == 1) {
-            headerText = [NSString stringWithFormat:@"Level (%.2f)", (self.dimSlider.value * 10)];
-        }
-    }
-    return headerText;
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    NSString *headerText = @"";
+//    if (tableView) {
+//        if (section == 1) {
+//            headerText = [NSString stringWithFormat:@"Level (%.2f)", (self.dimSlider.value * 10)];
+//        }
+//    }
+//    return headerText;
+//}
 
 @end

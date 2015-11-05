@@ -36,7 +36,8 @@
     
     self.endTimeTextField.inputView = self.timePicker;
     self.startTimeTextField.inputView = self.timePicker;
-    
+	
+	// TODO: Change time picker to Reminders-style in-cell picker! 
     self.timePickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 44)];
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(toolbarDoneButtonClicked:)];
     [self.timePickerToolbar setItems:@[doneButton]];
@@ -169,17 +170,17 @@
     [userDefaults setFloat:self.orangeSlider.value forKey:@"maxOrange"];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString *headerText = @"";
-    if (tableView) {
-        if (section == 1) {
-            headerText = [NSString stringWithFormat:@"Temperature (%.2f)", (self.orangeSlider.value * 10)];
-        }
-        if (section == 2) {
-            headerText = @"Automatic Mode";
-        }
-    }
-    return headerText;
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    NSString *headerText = @"";
+//    if (tableView) {
+//        if (section == 1) {
+//            headerText = [NSString stringWithFormat:@"Temperature (%.2f)", (self.orangeSlider.value * 10)];
+//        }
+//        if (section == 2) {
+//            headerText = @"Automatic Mode";
+//        }
+//    }
+//    return headerText;
+//}
 
 @end

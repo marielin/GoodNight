@@ -9,7 +9,5 @@
 @interface SettingsViewController : UITableViewController
 
 @property (weak, nonatomic) IBOutlet UISwitch *suspendSwitch;
-//@property (weak, nonatomic) IBOutlet UISwitch *forceTouchSwitch;
-//@property (weak, nonatomic) IBOutlet UISwitch *peekPopSwitch;
 
 @end

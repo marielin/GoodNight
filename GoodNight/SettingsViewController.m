@@ -22,16 +22,11 @@
     [super viewDidLoad];
     
     self.suspendSwitch.on = [userDefaults boolForKey:@"suspendEnabled"];
-//    self.peekPopSwitch.on = [userDefaults boolForKey:@"peekPopEnabled"];
 }
 
 - (IBAction)suspendSwitchChanged {
     [userDefaults setBool:self.suspendSwitch.on forKey:@"suspendEnabled"];
 }
-
-//- (IBAction)peekPopSwitchChanged {
-//    [userDefaults setBool:self.peekPopSwitch.on forKey:@"peekPopEnabled"];
-//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0") && self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {

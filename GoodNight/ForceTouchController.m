@@ -9,51 +9,41 @@
 @implementation ForceTouchController
 
 + (UIApplicationShortcutItem *)shortcutItemForTemperature {
-    NSString *shortcutType, *shortcutTitle, *shortcutSubtitle, *iconTemplate = nil;
-    
-    static NSString * const turnOnText = @"Turn on this adjustment";
-    static NSString * const turnOffText = @"Turn off this adjustment";
+    NSString *shortcutType, *shortcutTitle, *iconTemplate = nil;
 	
 	shortcutType = @"temperatureForceTouchAction";
 	
 	if (![userDefaults boolForKey:@"enabled"]) {
 		shortcutTitle = @"Enable Temperature";
-		shortcutSubtitle = turnOnText;
 		iconTemplate = @"enable-switch";
 	}
 	else {
 		shortcutTitle = @"Disable Temperature";
-		shortcutSubtitle = turnOffText;
 		iconTemplate = @"disable-switch";
 	}
     
     UIApplicationShortcutIcon *shortcutIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:iconTemplate];
-    UIMutableApplicationShortcutItem *shortcut = [[UIMutableApplicationShortcutItem alloc] initWithType:shortcutType localizedTitle:shortcutTitle localizedSubtitle:shortcutSubtitle icon:shortcutIcon userInfo:nil];
+    UIMutableApplicationShortcutItem *shortcut = [[UIMutableApplicationShortcutItem alloc] initWithType:shortcutType localizedTitle:shortcutTitle localizedSubtitle:nil icon:shortcutIcon userInfo:nil];
     
     return shortcut;
 }
 
 + (UIApplicationShortcutItem *)shortcutItemForBrightness {
-	NSString *shortcutType, *shortcutTitle, *shortcutSubtitle, *iconTemplate = nil;
-	
-	static NSString * const turnOnText = @"Turn on this adjustment";
-	static NSString * const turnOffText = @"Turn off this adjustment";
-	
+	NSString *shortcutType, *shortcutTitle, *iconTemplate = nil;
+
 	shortcutType = @"dimForceTouchAction";
 	
 	if (![userDefaults boolForKey:@"dimEnabled"]) {
 		shortcutTitle = @"Enable Dimness";
-		shortcutSubtitle = turnOnText;
 		iconTemplate = @"enable-switch";
 	}
 	else {
 		shortcutTitle = @"Disable Dimness";
-		shortcutSubtitle = turnOffText;
 		iconTemplate = @"disable-switch";
 	}
 	
 	UIApplicationShortcutIcon *shortcutIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:iconTemplate];
-	UIMutableApplicationShortcutItem *shortcut = [[UIMutableApplicationShortcutItem alloc] initWithType:shortcutType localizedTitle:shortcutTitle localizedSubtitle:shortcutSubtitle icon:shortcutIcon userInfo:nil];
+	UIMutableApplicationShortcutItem *shortcut = [[UIMutableApplicationShortcutItem alloc] initWithType:shortcutType localizedTitle:shortcutTitle localizedSubtitle:nil icon:shortcutIcon userInfo:nil];
 	
 	return shortcut;
 }
@@ -62,7 +52,7 @@
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0") && [app respondsToSelector:@selector(shortcutItems)] && [app respondsToSelector:@selector(setShortcutItems:)]) {
 		UIApplicationShortcutItem *shortcutTemperature = [self shortcutItemForTemperature];
 		UIApplicationShortcutItem *shortcutBrightness = [self shortcutItemForBrightness];
-		[app setShortcutItems:@[shortcutTemperature, shortcutBrightness]];
+		[app setShortcutItems:@[shortcutBrightness, shortcutTemperature]];
     }
 }
 
