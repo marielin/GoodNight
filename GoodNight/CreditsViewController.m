@@ -42,16 +42,19 @@
             if (indexPath.row == 1) {
                 username = @"AAgatiello";
             }
-            if (indexPath.row == 2) {
+			if (indexPath.row == 2) {
+				username = @"sapphirinedream";
+			}
+            if (indexPath.row == 3) {
                 username = @"GoodNightiOS";
             }
-            if (indexPath.row == 3) {
+            if (indexPath.row == 4) {
                 username = @"Emu4iOS";
             }
-            if (indexPath.row == 4) {
+            if (indexPath.row == 5) {
                 username = @"The120thWhisper";
             }
-            if (indexPath.row == 5) {
+            if (indexPath.row == 6) {
                 username = @"lyablin_nikita";
             }
             [self openTwitterAccount];
