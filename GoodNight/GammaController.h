@@ -18,10 +18,7 @@ typedef kern_return_t IOMobileFramebufferReturn, SpringBoardServicesReturn;
 + (void)enableOrangenessWithDefaults:(BOOL)defaults transition:(BOOL)transition;
 + (void)setGammaWithTransitionFrom:(float)oldPercentOrange to:(float)newPercentOrange;
 + (void)disableOrangenessWithDefaults:(BOOL)defaults key:(NSString *)key transition:(BOOL)transition;
-+ (void)showFailedAlertWithKey:(NSString *)key;
-+ (void)enableDimness;
-+ (void)setGammaWithCustomValues;
++ (void)updateDimness;
 + (void)suspendApp;
-+ (BOOL)adjustmentForKeysEnabled:(NSString *)key1 key2:(NSString *)key2;
 
 @end

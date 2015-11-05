@@ -19,41 +19,41 @@
 
 - (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location
 {
-    if ([userDefaults boolForKey:@"peekPopEnabled"]) {
-        CGPoint cellPostion = [self.tableView convertPoint:location fromView:self.view];
-        NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:cellPostion];
-        
-        if (indexPath) {
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-            NSString *identifier = nil;
-            
-            if (indexPath.section == 0) {
-                if (indexPath.row == 0) {
-                    identifier = @"mainViewController";
-                }
-                if (indexPath.row == 1) {
-                    identifier = @"brightnessViewController";
-                }
-                if (indexPath.row == 2) {
-                    identifier = @"colorViewController";
-                }
-            }
-            
-            if (indexPath.section == 1) {
-                if (indexPath.row == 0) {
-                    identifier = @"settingsViewController";
-                }
-            }
-            
-            if (indexPath.section == 2) {
-                identifier = @"creditsViewController";
-            }
-            
-            previewingContext.sourceRect = cell.frame;
-            UIViewController *viewController = [AppDelegate initWithIdentifier:identifier];
-            return viewController;
-        }
-    }
+//    if ([userDefaults boolForKey:@"peekPopEnabled"]) {
+//        CGPoint cellPostion = [self.tableView convertPoint:location fromView:self.view];
+//        NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:cellPostion];
+//        
+//        if (indexPath) {
+//            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//            NSString *identifier = nil;
+//            
+//            if (indexPath.section == 0) {
+//                if (indexPath.row == 0) {
+//                    identifier = @"mainViewController";
+//                }
+//                if (indexPath.row == 1) {
+//                    identifier = @"brightnessViewController";
+//                }
+//                if (indexPath.row == 2) {
+//                    identifier = @"colorViewController";
+//                }
+//            }
+//            
+//            if (indexPath.section == 1) {
+//                if (indexPath.row == 0) {
+//                    identifier = @"settingsViewController";
+//                }
+//            }
+//            
+//            if (indexPath.section == 2) {
+//                identifier = @"creditsViewController";
+//            }
+//            
+//            previewingContext.sourceRect = cell.frame;
+//            UIViewController *viewController = [AppDelegate initWithIdentifier:identifier];
+//            return viewController;
+//        }
+//    }
     return nil;
 }
 

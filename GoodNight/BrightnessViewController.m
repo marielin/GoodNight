@@ -34,33 +34,25 @@
 
 - (IBAction)brightnessSwitchChanged {
     [userDefaults setBool:self.dimSwitch.on forKey:@"dimEnabled"];
-        
-    if (self.dimSwitch.on) {
-        [GammaController enableDimness];
-    }
-    else {
-        [GammaController disableOrangenessWithDefaults:NO key:@"dimEnabled" transition:NO];
-    }
+	
+	[GammaController updateDimness];
+	
     [self viewDidLoad];
 }
 
 - (IBAction)dimSliderLevelChanged {
     [userDefaults setFloat:self.dimSlider.value forKey:@"dimLevel"];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-    
-    if (self.dimSwitch.on) {
-        [GammaController enableDimness];
-    }
+	
+	[GammaController updateDimness];
 }
 
 - (IBAction)resetSlider {
-    self.dimSlider.value = 1.0;
+    self.dimSlider.value = 0.5;
     [userDefaults setFloat:self.dimSlider.value forKey:@"dimLevel"];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-    
-    if (self.dimSwitch.on) {
-        [GammaController enableDimness];
-    }
+	
+	[GammaController updateDimness];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

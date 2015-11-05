@@ -21,18 +21,12 @@
                                          @"blueValue": @1.0,
                                          @"dimEnabled": @NO,
                                          @"dimLevel": @1.0,
-                                         @"rgbEnabled": @NO,
                                          @"lastAutoChangeDate": [NSDate distantPast],
                                          @"autoStartHour": @19,
                                          @"autoStartMinute": @0,
                                          @"autoEndHour": @7,
                                          @"autoEndMinute": @0,
-                                         @"suspendEnabled": @YES,
-                                         @"forceTouchEnabled": @YES,
-                                         @"tempForceTouch": @YES,
-                                         @"dimForceTouch": @NO,
-                                         @"rgbForceTouch": @NO,
-                                         @"peekPopEnabled": @YES,
+                                         @"suspendEnabled": @NO,
                                          @"keyEnabled": @"0"};
     
     [userDefaults registerDefaults:defaultsToRegister];

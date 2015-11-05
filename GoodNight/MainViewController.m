@@ -159,7 +159,7 @@
 }
 
 - (IBAction)resetSlider {
-    self.orangeSlider.value = 0.4;
+    self.orangeSlider.value = 0.5;
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
     
     if (self.enabledSwitch.on) {

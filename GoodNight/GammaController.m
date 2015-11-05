@@ -82,15 +82,18 @@
     if (percentOrange > 1 || percentOrange < 0) {
         return;
     }
+	
+	float dimLevel;
+	if ([userDefaults boolForKey:@"dimEnabled"]) {
+		dimLevel = [userDefaults floatForKey:@"dimLevel"];
+	} else {
+		dimLevel = 1.0;
+	}
     
-    float red = 1.0;
-    float blue = 1 - percentOrange;
+    float red = 1.0 * dimLevel;
+    float blue = percentOrange * dimLevel;
     float green = (red + blue) / 2.0;
-    
-    if (percentOrange == 0) {
-        red = blue = green = 0.99;
-    }
-    
+	
     if ([self wakeUpScreenIfNeeded]) {
         [self setGammaWithRed:red green:green blue:blue];
     }
@@ -140,51 +143,46 @@
     [userDefaults setObject:[NSDate date] forKey:@"lastAutoChangeDate"];
 }
 
++ (void)setGammaWithTransitionFrom:(float)oldPercentOrange to:(float)newPercentOrange {
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+		if (newPercentOrange > oldPercentOrange) {
+			for (float i = oldPercentOrange; i <= newPercentOrange; i = i + 0.01) {
+				[NSThread sleepForTimeInterval:0.02];
+				[self setGammaWithOrangeness:i];
+			}
+		}
+		else {
+			for (float i = oldPercentOrange; i >= newPercentOrange; i = i - 0.01) {
+				[NSThread sleepForTimeInterval:0.02];
+				[self setGammaWithOrangeness:i];
+			}
+		}
+	});
+}
+
 + (void)enableOrangenessWithDefaults:(BOOL)defaults transition:(BOOL)transition {
-    if ([self adjustmentForKeysEnabled:@"dimEnabled" key2:@"rgbEnabled"] == NO) {
-        float orangeLevel = [userDefaults floatForKey:@"maxOrange"];
-        if (transition == YES) {
-            [self setGammaWithTransitionFrom:0 to:orangeLevel];
-        }
-        else {
-            [self setGammaWithOrangeness:orangeLevel];
-        }
-        if (defaults == YES) {
-            [userDefaults setObject:[NSDate date] forKey:@"lastAutoChangeDate"];
-            [userDefaults setBool:YES forKey:@"enabled"];
-        }
-        [userDefaults setObject:@"0" forKey:@"keyEnabled"];
-    }
-    else {
-        [self showFailedAlertWithKey:@"enabled"];
-    }
+	float orangeLevel = [userDefaults floatForKey:@"maxOrange"];
+	if (transition == YES) {
+		[self setGammaWithTransitionFrom:1.0 to:orangeLevel];
+	}
+	else {
+		[self setGammaWithOrangeness:orangeLevel];
+	}
+	if (defaults == YES) {
+		[userDefaults setObject:[NSDate date] forKey:@"lastAutoChangeDate"];
+		[userDefaults setBool:YES forKey:@"enabled"];
+	}
+	[userDefaults setObject:@"0" forKey:@"keyEnabled"];
     [userDefaults synchronize];
     [ForceTouchController updateShortcutItems];
 }
 
-+ (void)setGammaWithTransitionFrom:(float)oldPercentOrange to:(float)newPercentOrange {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        if (newPercentOrange > oldPercentOrange) {
-            for (float i = oldPercentOrange; i <= newPercentOrange; i = i + 0.01) {
-                [NSThread sleepForTimeInterval:0.02];
-                [self setGammaWithOrangeness:i];
-            }
-        }
-        else {
-            for (float i = oldPercentOrange; i >= newPercentOrange; i = i - 0.01) {
-                [NSThread sleepForTimeInterval:0.02];
-                [self setGammaWithOrangeness:i];
-            }
-        }
-    });
-}
-
 + (void)disableOrangenessWithDefaults:(BOOL)defaults key:(NSString *)key transition:(BOOL)transition {
     if (transition == YES) {
-        [self setGammaWithTransitionFrom:[userDefaults floatForKey:@"maxOrange"] to:0];
+        [self setGammaWithTransitionFrom:[userDefaults floatForKey:@"maxOrange"] to:1.0];
     }
     else {
-        [self setGammaWithOrangeness:0];
+        [self setGammaWithOrangeness:1.0];
     }
     if (defaults == YES) {
         [userDefaults setObject:[NSDate date] forKey:@"lastAutoChangeDate"];
@@ -213,65 +211,25 @@
 
     dlclose(SpringBoardServices);
     return !isLocked;
-    
 }
 
-+ (void)showFailedAlertWithKey:(NSString *)key {
-    [userDefaults setObject:@"1" forKey:@"keyEnabled"];
-    [userDefaults setBool:NO forKey:key];
-    [userDefaults synchronize];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You may only use one adjustment at a time. Please disable any other adjustments before enabling this one." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
-}
-
-+ (void)enableDimness {
-    if ([self adjustmentForKeysEnabled:@"enabled" key2:@"rgbEnabled"] == NO) {
-        float dimLevel = [userDefaults floatForKey:@"dimLevel"];
-        [self setGammaWithRed:dimLevel green:dimLevel blue:dimLevel];
-        [userDefaults setBool:YES forKey:@"dimEnabled"];
-        [userDefaults setObject:@"0" forKey:@"keyEnabled"];
-    }
-    else {
-        [self showFailedAlertWithKey:@"dimEnabled"];
-    }
++ (void)updateDimness {
+	float orangeLevel = [userDefaults floatForKey:@"maxOrange"];
+	[self setGammaWithOrangeness:orangeLevel];
     [userDefaults synchronize];
     [ForceTouchController updateShortcutItems];
 }
-
-+ (void)setGammaWithCustomValues {
-    if ([self adjustmentForKeysEnabled:@"dimEnabled" key2:@"enabled"] == NO) {
-        float redValue = [userDefaults floatForKey:@"redValue"];
-        float greenValue = [userDefaults floatForKey:@"greenValue"];
-        float blueValue = [userDefaults floatForKey:@"blueValue"];
-        [self setGammaWithRed:redValue green:greenValue blue:blueValue];
-        [userDefaults setBool:YES forKey:@"rgbEnabled"];
-        [userDefaults setObject:@"0" forKey:@"keyEnabled"];
-    }
-    else {
-        [self showFailedAlertWithKey:@"rgbEnabled"];
-    }
-    [userDefaults synchronize];
-    [ForceTouchController updateShortcutItems];
-}
-
 
 + (void)suspendApp {
-    void *SpringBoardServices = dlopen("/System/Library/PrivateFrameworks/SpringBoardServices.framework/SpringBoardServices", RTLD_LAZY);
-    NSParameterAssert(SpringBoardServices);
-    mach_port_t (*SBSSpringBoardServerPort)() = dlsym(SpringBoardServices, "SBSSpringBoardServerPort");
-    NSParameterAssert(SBSSpringBoardServerPort);
-    SpringBoardServicesReturn (*SBSuspend)(mach_port_t port) = dlsym(SpringBoardServices, "SBSuspend");
-    NSParameterAssert(SBSuspend);
-    mach_port_t sbsMachPort = SBSSpringBoardServerPort();
-    SBSuspend(sbsMachPort);
-    dlclose(SpringBoardServices);
-}
-
-+ (BOOL)adjustmentForKeysEnabled:(NSString *)key1 key2:(NSString *)key2 {
-    if (![userDefaults boolForKey:key1] && ![userDefaults boolForKey:key2]) {
-        return NO;
-    }
-    return YES;
+	void *SpringBoardServices = dlopen("/System/Library/PrivateFrameworks/SpringBoardServices.framework/SpringBoardServices", RTLD_LAZY);
+	NSParameterAssert(SpringBoardServices);
+	mach_port_t (*SBSSpringBoardServerPort)() = dlsym(SpringBoardServices, "SBSSpringBoardServerPort");
+	NSParameterAssert(SBSSpringBoardServerPort);
+	SpringBoardServicesReturn (*SBSuspend)(mach_port_t port) = dlsym(SpringBoardServices, "SBSuspend");
+	NSParameterAssert(SBSuspend);
+	mach_port_t sbsMachPort = SBSSpringBoardServerPort();
+	SBSuspend(sbsMachPort);
+	dlclose(SpringBoardServices);
 }
 
 @end

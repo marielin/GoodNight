@@ -10,7 +10,8 @@ static BOOL forceTouchActionEnabled = NO;
 
 @interface ForceTouchController : NSObject
 
-+ (UIApplicationShortcutItem *)shortcutItemForCurrentState;
++ (UIApplicationShortcutItem *)shortcutItemForTemperature;
++ (UIApplicationShortcutItem *)shortcutItemForBrightness;
 + (void)updateShortcutItems;
 + (BOOL)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
 + (void)exitIfKeyEnabled;
