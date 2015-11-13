@@ -83,16 +83,27 @@
         return;
     }
 	
+	float hectokelvin = percentOrange * 45 + 20;
+	
 	float dimLevel;
 	if ([userDefaults boolForKey:@"dimEnabled"]) {
 		dimLevel = [userDefaults floatForKey:@"dimLevel"];
 	} else {
 		dimLevel = 1.0;
 	}
-    
-    float red = 1.0 * dimLevel;
-    float blue = percentOrange * dimLevel;
-    float green = (red + blue) / 2.0;
+
+    float red = 255.0;
+    float green = -155.25485562709179 + -0.44596950469579133 * (hectokelvin - 2) + 104.49216199393888 * log(hectokelvin - 2);
+    float blue = -254.76935184120902 + 0.8274096064007395 * (hectokelvin - 10) + 115.67994401066147 * log(hectokelvin - 10);
+	
+	if (percentOrange == 1) {
+		green = 255.0;
+		blue = 255.0;
+	}
+	
+	red = red / 255.0 * dimLevel;
+	green = green / 255.0 * dimLevel;
+	blue = blue / 255.0 * dimLevel;
 	
     if ([self wakeUpScreenIfNeeded]) {
         [self setGammaWithRed:red green:green blue:blue];
@@ -100,10 +111,10 @@
 }
 
 + (void)autoChangeOrangenessIfNeededWithTransition:(BOOL)transition {
-    if ([userDefaults boolForKey:@"enabled"]) {
-        [self enableOrangenessWithDefaults:YES transition:transition];
-    }
-    
+//    if ([userDefaults boolForKey:@"enabled"]) {
+//        [self enableOrangenessWithDefaults:YES transition:transition];
+//    }
+	
     if (![userDefaults boolForKey:@"colorChangingEnabled"]) {
         return;
     }

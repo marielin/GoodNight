@@ -170,17 +170,17 @@
     [userDefaults setFloat:self.orangeSlider.value forKey:@"maxOrange"];
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    NSString *headerText = @"";
-//    if (tableView) {
-//        if (section == 1) {
-//            headerText = [NSString stringWithFormat:@"Temperature (%.2f)", (self.orangeSlider.value * 10)];
-//        }
-//        if (section == 2) {
-//            headerText = @"Automatic Mode";
-//        }
-//    }
-//    return headerText;
-//}
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSString *headerText = @"";
+    if (tableView) {
+        if (section == 1) {
+            headerText = [NSString stringWithFormat:@"Temperature (%dK)", ((int)(self.orangeSlider.value * 45 + 20) * 100)];
+        }
+        if (section == 2) {
+            headerText = @"Automatic Mode";
+        }
+    }
+    return headerText;
+}
 
 @end
