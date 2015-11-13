@@ -154,6 +154,8 @@
 }
 
 - (IBAction)colorChangingEnabledSwitchChanged {
+	self.enabledSwitch.enabled = !self.colorChangingEnabledSwitch.on;
+
     [userDefaults setBool:self.colorChangingEnabledSwitch.on forKey:@"colorChangingEnabled"];
     [userDefaults setObject:[NSDate distantPast] forKey:@"lastAutoChangeDate"];
     [GammaController autoChangeOrangenessIfNeededWithTransition:YES];
